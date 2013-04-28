@@ -1,14 +1,13 @@
 require "bullets"
 
 function love.load()
-  bullets = BulletBatch.new()
   axis_x = 0
   axis_y = 0
-  slide_speed = 0
   tile_size = 32
   gun_heat = 0
   tileSheet = love.graphics.newImage("tiles.png")
   dotImg = love.graphics.newImage("dot.png")
+  bullets = BulletBatch.new(dotImg)
   tiles = {
       love.graphics.newQuad(tile_size*0,0, tile_size, tile_size, 128,128),
       love.graphics.newQuad(tile_size*1,0, tile_size, tile_size, 128,128),
@@ -56,14 +55,14 @@ function love.update(dt)
       shift_x = true
   end
 
-  ship_pos.x = math.ceil(ship_pos.x + (axis_x * 128 * dt))
-  ship_pos.y = math.ceil(ship_pos.y + (axis_y * 64 * dt))
+  ship_pos.x = (ship_pos.x + (axis_x * 128 * dt))
+  ship_pos.y = (ship_pos.y + (axis_y * 128 * dt))
 
   if love.keyboard.isDown(" ") and gun_heat < 0 then 
-    bullets:add({ship_pos.x + 16, ship_pos.y}, {   0, -392}, 0)
-    bullets:add({ship_pos.x + 10, ship_pos.y}, {-128, -392}, 0)
-    bullets:add({ship_pos.x + 20, ship_pos.y}, { 128, -392}, 0)
-    gun_heat = 1
+    bullets:add({ship_pos.x + tile_size/2, ship_pos.y},     {   0, -392}, 0)
+    bullets:add({ship_pos.x + tile_size/2 - 4, ship_pos.y}, {-128, -392}, 0)
+    bullets:add({ship_pos.x + tile_size/2 + 4, ship_pos.y}, { 128, -392}, 0)
+    gun_heat = 2
   end
 
   gun_heat = gun_heat - 0.5
@@ -96,19 +95,15 @@ function love.draw()
       end    
   end
 
-  love.graphics.drawq(tileSheet, shipq, ship_pos.x, ship_pos.y)
-  local bullet_pos = bullets:get_pos()
-  for i, bullet in pairs(bullet_pos) do
-    love.graphics.draw(dotImg, bullet.pos[1], bullet.pos[2])
-    print(bullet.pos[2])
-  end
+  love.graphics.drawq(tileSheet, shipq, math.ceil(ship_pos.x), math.ceil(ship_pos.y))
+  bullets:draw()
 
   love.graphics.setBlendMode("multiplicative")
   love.graphics.drawq(tileSheet, ship_shadowq, ship_pos.x+32, ship_pos.y+32)
   love.graphics.setBlendMode("alpha")
   love.graphics.setFont(font_text)
   love.graphics.print(axis_x,0,0)
-  love.graphics.print(("bullets: %d"):format(#bullet_pos) ,30,0)
+  love.graphics.print(("bullets: %d"):format(bullets:count()) ,30,0)
   love.graphics.setFont(font_score)
   love.graphics.print("102004", 10,10)
 end

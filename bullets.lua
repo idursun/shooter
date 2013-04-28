@@ -1,34 +1,40 @@
 BulletBatch = {}
 
 BulletBatch.__index = BulletBatch
-local bullets = {}
-function BulletBatch.new()
-  ret = {}
-  setmetatable(ret, BulletBatch)
-  return ret
+function BulletBatch.new(image)
+  return setmetatable({
+      image = image, 
+      bullets={}
+  }, BulletBatch)
 end
 
-function BulletBatch:add(pos, dir, typ)
-    table.insert(bullets, {pos= pos, direction = dir, bullet_type = typ}) 
+function BulletBatch:add(position, direction, bullet_type)
+    table.insert(self.bullets, {pos= position, dir= direction, bullet_type = bullet_type}) 
 end
 
 function BulletBatch:update(dt)
   local toremove= {}
-  for i, bullet in pairs(bullets) do
-      local dx = (bullet.direction[1] ) * dt
-      local dy = (bullet.direction[2] ) * dt
-      bullet.pos[1] = bullet.pos[1] + dx
-      bullet.pos[2] = bullet.pos[2] + dy
+  for i, bullet in pairs(self.bullets) do
+      print(bullet)
+      bullet.pos[1] = bullet.pos[1] + bullet.dir[1] * dt
+      bullet.pos[2] = bullet.pos[2] + bullet.dir[2] * dt
       if bullet.pos[1] < 0 or bullet.pos[2] < 0 or bullet.pos[1] > 2000 or bullet.pos[2] > 2000 then
           table.insert(toremove, i)
       end
   end
 
   for i = #toremove, 1, -1 do
-    table.remove(bullets, toremove[i])
+    table.remove(self.bullets, toremove[i])
   end
 end
 
-function BulletBatch:get_pos()
-  return bullets
+function BulletBatch:count()
+  return #bullets
+end
+
+function BulletBatch:draw()
+  for i, bullet in pairs(self.bullets) do
+    love.graphics.draw(self.image, bullet.pos[1], bullet.pos[2])
+--    print(bullet.pos[2])
+  end
 end
