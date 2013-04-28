@@ -1,4 +1,5 @@
 require "bullets"
+require "player"
 
 function love.load()
   axis_x = 0
@@ -26,55 +27,15 @@ function love.load()
           sheet[y][x] = math.random(1,#tiles)
       end    
   end
-  ship_pos = {x = width/2, y = height - tile_size*2}
   top = {x=0, y=0}
 
   font_text = love.graphics.newFont("font.ttf",30)
   font_score = love.graphics.newImageFont("score_font.png", "0123456789")
+  player = Player.new(tileSheet, shipq, ship_shadowq)
 end
 
 function love.update(dt)
-  local shift_x = false
-  local shift_y = false
-  local accelaration = 0.5
-  local deccelaration = 0.5
-  if love.keyboard.isDown("up") then 
-      axis_y = math.max(axis_y - accelaration, -1)
-      shift_y = true
-  end
-  if love.keyboard.isDown("down") then 
-      axis_y = math.min(axis_y + accelaration, 1)
-      shift_y = true
-  end
-  if love.keyboard.isDown("left") then 
-      axis_x = math.max(axis_x - accelaration, -1)
-      shift_x = true
-  end
-  if love.keyboard.isDown("right") then 
-      axis_x = math.min(axis_x + accelaration, 1)
-      shift_x = true
-  end
-
-  ship_pos.x = (ship_pos.x + (axis_x * 128 * dt))
-  ship_pos.y = (ship_pos.y + (axis_y * 128 * dt))
-
-  if love.keyboard.isDown(" ") and gun_heat < 0 then 
-    bullets:add({ship_pos.x + tile_size/2, ship_pos.y},     {   0, -392}, 0)
-    bullets:add({ship_pos.x + tile_size/2 - 4, ship_pos.y}, {-128, -392}, 0)
-    bullets:add({ship_pos.x + tile_size/2 + 4, ship_pos.y}, { 128, -392}, 0)
-    gun_heat = 2
-  end
-
-  gun_heat = gun_heat - 0.5
-  if not shift_x and axis_x ~= 0 then 
-    axis_x = axis_x + (axis_x < 0 and deccelaration or -deccelaration)
-    if math.abs(axis_x) < 0.1 then axis_x = 0 end
-  end
-
-  if not shift_y and axis_y ~= 0 then 
-    axis_y = axis_y + (axis_y < 0 and deccelaration or -deccelaration)
-    if math.abs(axis_y) < 0.1 then axis_y = 0 end
-  end
+  player:update(dt)
 
   top.y = math.ceil(top.y + dt * tile_size)
   if top.y > tile_size then
@@ -95,11 +56,10 @@ function love.draw()
       end    
   end
 
-  love.graphics.drawq(tileSheet, shipq, math.ceil(ship_pos.x), math.ceil(ship_pos.y))
+  player:draw()
   bullets:draw()
 
   love.graphics.setBlendMode("multiplicative")
-  love.graphics.drawq(tileSheet, ship_shadowq, ship_pos.x+32, ship_pos.y+32)
   love.graphics.setBlendMode("alpha")
   love.graphics.setFont(font_text)
   love.graphics.print(axis_x,0,0)

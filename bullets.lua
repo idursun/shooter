@@ -29,7 +29,7 @@ function BulletBatch:update(dt)
 end
 
 function BulletBatch:count()
-  return #bullets
+  return #self.bullets
 end
 
 function BulletBatch:draw()
