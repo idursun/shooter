@@ -15,7 +15,6 @@ end
 function BulletBatch:update(dt)
   local toremove= {}
   for i, bullet in pairs(self.bullets) do
-      print(bullet)
       bullet.pos[1] = bullet.pos[1] + bullet.dir[1] * dt
       bullet.pos[2] = bullet.pos[2] + bullet.dir[2] * dt
       if bullet.pos[1] < 0 or bullet.pos[2] < 0 or bullet.pos[1] > 2000 or bullet.pos[2] > 2000 then
@@ -35,6 +34,5 @@ end
 function BulletBatch:draw()
   for i, bullet in pairs(self.bullets) do
     love.graphics.draw(self.image, bullet.pos[1], bullet.pos[2])
---    print(bullet.pos[2])
   end
 end
