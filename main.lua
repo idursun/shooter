@@ -1,6 +1,7 @@
 require "bullets"
 require "player"
 require "controller"
+require "ai"
 
 function love.load()
   width, height = love.graphics.getMode()
@@ -18,6 +19,7 @@ function love.load()
   }
   shipq = love.graphics.newQuad(tile_size,tile_size,tile_size,tile_size, 128, 128)
   ship_shadowq = love.graphics.newQuad(tile_size*2,tile_size*2,tile_size,tile_size, 128, 128)
+  enemyq = love.graphics.newQuad(tile_size*2, tile_size, tile_size, tile_size, 128, 128)
   sheet ={}
   for y=-1, height/tile_size do
       sheet[y] = {}
@@ -33,6 +35,7 @@ function love.load()
   bullets = BulletBatch.new(dotImg)
   player = Player.new(tileSheet, shipq, ship_shadowq)
   controller = Controller.new()
+  ai = Ai.new()
 end
 
 function love.update(dt)
@@ -48,8 +51,18 @@ function love.update(dt)
       sheet[-1][x] = math.random(1,#tiles)
     end
   end
-
   bullets:update(dt)
+  ai:update(dt)
+  local toremove = {}
+  for i, v in pairs(ai:get_enemies()) do
+      if (bullets:is_hit(v.pos.x, v.pos.y)) then
+          table.insert(toremove, i)
+      end
+  end
+
+  for i=#toremove, 1, -1 do
+      ai:remove(toremove[i])
+  end
 end
 
 function love.draw()
@@ -61,8 +74,8 @@ function love.draw()
   end
 
   player:draw()
+  ai:draw()
   bullets:draw()
-
   love.graphics.setBlendMode("multiplicative")
   love.graphics.setBlendMode("alpha")
   love.graphics.setFont(font_text)

@@ -12,6 +12,14 @@ function BulletBatch:add(position, direction, bullet_type)
     table.insert(self.bullets, {pos= position, dir= direction, bullet_type = bullet_type}) 
 end
 
+function BulletBatch:is_hit(pos_x, pos_y)
+  for i, v in pairs(self.bullets) do
+    if (pos_x > v.pos[1]-tile_size/2  and pos_x < v.pos[1] + tile_size/2 and pos_y > v.pos[2] - tile_size/2  and pos_y < v.pos[2] + tile_size/2) then
+        return true
+    end
+  end
+end
+
 function BulletBatch:update(dt)
   local toremove= {}
   for i, bullet in pairs(self.bullets) do
