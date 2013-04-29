@@ -17,8 +17,6 @@ function love.load()
       love.graphics.newQuad(0,tile_size*1, tile_size, tile_size, 128,128),
       love.graphics.newQuad(0,tile_size*2, tile_size, tile_size, 128,128)
   }
-  shipq = love.graphics.newQuad(tile_size,tile_size,tile_size,tile_size, 128, 128)
-  ship_shadowq = love.graphics.newQuad(tile_size*2,tile_size*2,tile_size,tile_size, 128, 128)
   enemyq = love.graphics.newQuad(tile_size*2, tile_size, tile_size, tile_size, 128, 128)
   sheet ={}
   for y=-1, height/tile_size do
@@ -33,7 +31,7 @@ function love.load()
   font_score = love.graphics.newImageFont("score_font.png", "0123456789")
 
   bullets = BulletBatch.new(dotImg)
-  player = Player.new(tileSheet, shipq, ship_shadowq)
+  player = Player.new(tileSheet)
   controller = Controller.new()
   ai = Ai.new()
 end
