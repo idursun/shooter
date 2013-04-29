@@ -4,7 +4,7 @@ Player.__index = Player
 function Player.new(image )
   local shipq = love.graphics.newQuad(tile_size,tile_size,tile_size,tile_size, 128, 128)
   local ship_shadowq = love.graphics.newQuad(tile_size*2,tile_size*2,tile_size,tile_size, 128, 128)
-  local w, h = shipq:getViewport()
+  local sx, sy, w, h = shipq:getViewport()
    return setmetatable({
         image = image,
         shipq = shipq,
