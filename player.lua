@@ -14,8 +14,8 @@ end
 function Player:update(dt)
   local axis_x = controller:get_axis_x()
   local axis_y = controller:get_axis_y()
-  self.ship_pos.x = (self.ship_pos.x + (axis_x * 128 * dt))
-  self.ship_pos.y = (self.ship_pos.y + (axis_y * 128 * dt))
+  self.ship_pos.x = (self.ship_pos.x + (axis_x * 512 * dt))
+  self.ship_pos.y = (self.ship_pos.y + (axis_y * 512 * dt))
 
   if love.keyboard.isDown(" ") and self.gun_heat < 0 then 
     bullets:add({self.ship_pos.x + tile_size/2, self.ship_pos.y},     {   0, -392}, 0)

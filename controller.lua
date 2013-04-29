@@ -7,33 +7,31 @@ end
 
 function Controller:update(dt)
   local accelaration = 0.5
-  local deccelaration = 0.1
-
-  if self.axis_x ~= 0 then 
-    self.axis_x = self.axis_x + (self.axis_x < 0 and deccelaration or -deccelaration)
-    if math.abs(self.axis_x) < 0.1 then self.axis_x = 0 end
-  end
-
-  if self.axis_y ~= 0 then 
-    self.axis_y = self.axis_y + (self.axis_y < 0 and deccelaration or -deccelaration)
-    if math.abs(self.axis_y) < 0.1 then self.axis_y = 0 end
-  end
+  local shifted_y = false
+  local shifted_x = false
 
   if love.keyboard.isDown("up") then 
       self.axis_y = math.max(self.axis_y - accelaration, -1)
+      shifted_y = true
   end
 
   if love.keyboard.isDown("down") then 
       self.axis_y = math.min(self.axis_y + accelaration, 1)
+      shifted_y = true
   end
 
   if love.keyboard.isDown("left") then 
       self.axis_x = math.max(self.axis_x - accelaration, -1)
+      shifted_x = true
   end
 
   if love.keyboard.isDown("right") then 
       self.axis_x = math.min(self.axis_x + accelaration, 1)
+      shifted_x = true
   end
+
+  if not shifted_y then self.axis_y = 0 end
+  if not shifted_x then self.axis_x = 0 end
 
 end
 
