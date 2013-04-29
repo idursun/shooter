@@ -40,7 +40,7 @@ function love.update(dt)
   controller:update(dt)
   player:update(dt)
 
-  top.y = math.ceil(top.y + dt * tile_size)
+  top.y = math.ceil(top.y + dt * 20)
   if top.y > tile_size then
     top.y = 0
     table.remove(sheet,31)
@@ -71,9 +71,9 @@ function love.draw()
       end    
   end
 
-  player:draw()
   ai:draw()
   bullets:draw()
+  player:draw()
   love.graphics.setBlendMode("multiplicative")
   love.graphics.setBlendMode("alpha")
   love.graphics.setFont(font_text)
