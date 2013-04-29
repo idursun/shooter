@@ -81,6 +81,5 @@ function love.draw()
   love.graphics.setFont(font_text)
   love.graphics.print(controller:get_axis_x(),0,0)
   love.graphics.print(("bullets: %d"):format(bullets:count()) ,30,0)
-  love.graphics.setFont(font_score)
-  love.graphics.print("102004", 10,10)
+  love.graphics.print("fps:"..love.timer.getFPS(), width - 200,0)
 end
