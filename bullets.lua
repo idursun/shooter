@@ -41,6 +41,6 @@ end
 
 function BulletBatch:draw()
   for i, bullet in pairs(self.bullets) do
-    love.graphics.draw(self.image, bullet.pos[1], bullet.pos[2])
+    love.graphics.draw(resources.images.dot, bullet.pos[1], bullet.pos[2])
   end
 end

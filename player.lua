@@ -1,15 +1,16 @@
+require "resources"
+
 Player = {}
 Player.__index = Player
 
-function Player.new(image )
+function Player.new()
   local shipq = love.graphics.newQuad(tile_size,tile_size,tile_size,tile_size, 128, 128)
   local ship_shadowq = love.graphics.newQuad(tile_size*2,tile_size*2,tile_size,tile_size, 128, 128)
   local sx, sy, w, h = shipq:getViewport()
    return setmetatable({
-        image = image,
         shipq = shipq,
-        size = { width = w, height = h},
         ship_shadowq = ship_shadowq,
+        size = { width = w, height = h},
         gun_heat = 0,
         ship_pos = {x = width/2, y = height - tile_size*2}
    }, Player)
@@ -37,6 +38,6 @@ function Player:update(dt)
 end
 
 function Player:draw()
-  love.graphics.drawq(self.image, self.shipq, math.ceil(self.ship_pos.x), math.ceil(self.ship_pos.y))
-  love.graphics.drawq(self.image, self.ship_shadowq, math.ceil(self.ship_pos.x+32), math.ceil(self.ship_pos.y+32))
+  love.graphics.drawq(resources.images.tiles, self.shipq, math.ceil(self.ship_pos.x), math.ceil(self.ship_pos.y))
+  love.graphics.drawq(resources.images.tiles, self.ship_shadowq, math.ceil(self.ship_pos.x+32), math.ceil(self.ship_pos.y+32))
 end

@@ -32,6 +32,6 @@ end
 
 function Ai:draw()
   for i, v in pairs(self.enemies) do
-      love.graphics.drawq(tileSheet, enemyq, v.pos.x, v.pos.y)
+      love.graphics.drawq(resources.images.tiles, enemyq, v.pos.x, v.pos.y)
   end
 end

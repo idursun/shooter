@@ -2,13 +2,14 @@ require "bullets"
 require "player"
 require "controller"
 require "ai"
+require "resources"
 
 function love.load()
+  resources = Resources.new()
   width, height = love.graphics.getMode()
-
   tile_size = 32
-  tileSheet = love.graphics.newImage("tiles.png")
-  dotImg = love.graphics.newImage("dot.png")
+  resources:addImage("tiles", "tiles.png")
+  resources:addImage("dot", "dot.png")
   tiles = {
       love.graphics.newQuad(tile_size*0,0, tile_size, tile_size, 128,128),
       love.graphics.newQuad(tile_size*1,0, tile_size, tile_size, 128,128),
@@ -27,8 +28,9 @@ function love.load()
   end
   top = {x=0, y=0}
 
-  font_text = love.graphics.newFont("font.ttf",30)
-  font_score = love.graphics.newImageFont("score_font.png", "0123456789")
+  resources:addFont("font_text", "font.ttf", 30)
+
+  resources:load()
 
   bullets = BulletBatch.new(dotImg)
   player = Player.new(tileSheet)
@@ -67,7 +69,7 @@ function love.draw()
 
   for y=-1, height/tile_size do
       for x=0, width/tile_size do
-          love.graphics.drawq(tileSheet, tiles[sheet[y][x]], x * tile_size, top.y + y * tile_size)
+          love.graphics.drawq(resources.images.tiles, tiles[sheet[y][x]], x * tile_size, top.y + y * tile_size)
       end    
   end
 
@@ -76,7 +78,7 @@ function love.draw()
   player:draw()
   love.graphics.setBlendMode("multiplicative")
   love.graphics.setBlendMode("alpha")
-  love.graphics.setFont(font_text)
+  love.graphics.setFont(resources.fonts.font_text)
   love.graphics.print(controller:get_axis_x(),0,0)
   love.graphics.print(("bullets: %d"):format(bullets:count()) ,30,0)
   love.graphics.print("fps:"..love.timer.getFPS(), width - 200,0)
