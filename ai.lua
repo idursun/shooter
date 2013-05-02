@@ -3,6 +3,7 @@ Ai.__index = Ai
 
 function Ai.new()
   return setmetatable({
+      enemyq = love.graphics.newQuad(tile_size*2, tile_size, tile_size, tile_size, 128, 128),
       last_enemy_time = 0,
       enemies = {}
   }, Ai)
@@ -32,6 +33,6 @@ end
 
 function Ai:draw()
   for i, v in pairs(self.enemies) do
-      love.graphics.drawq(resources.images.tiles, enemyq, v.pos.x, v.pos.y)
+      love.graphics.drawq(resources.images.tiles, self.enemyq, v.pos.x, v.pos.y)
   end
 end
