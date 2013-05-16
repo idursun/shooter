@@ -8,9 +8,9 @@ require "level"
 function love.load()
   resources = Resources.new()
   width, height = love.graphics.getMode()
-  resources:addImage("tiles", "tiles.png")
-  resources:addImage("dot", "dot.png")
-  resources:addFont("font_text", "font.ttf", 30)
+  resources:addImage("tiles", "resources/tiles.png")
+  resources:addImage("dot", "resources/dot.png")
+  resources:addFont("font_text", "resources/font.ttf", 30)
   resources:load()
 
   bullets = BulletBatch.new(dotImg)
