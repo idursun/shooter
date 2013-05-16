@@ -25,10 +25,18 @@ function Ai:update(dt)
     self.last_enemy_time = 1
   end
   self.last_enemy_time = self.last_enemy_time - dt
+  toremove = {}
   for i, v in pairs(self.enemies) do
     v.pos.y = v.pos.y + 100 * dt
     v.pos.x = v.pos.x + math.random(-100,100) * dt
+    if (bullets:is_hit(v.pos.x, v.pos.y)) then
+        table.insert(toremove, i)
+    end
   end
+  for i = #toremove, 1, -1 do
+    self:remove(i)
+  end
+
 end
 
 function Ai:draw()
