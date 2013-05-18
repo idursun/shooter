@@ -46,6 +46,12 @@ function BulletBatch.update(dt)
        i = i -1
     end
   end
+  batch:bind()
+  batch:clear()
+  for i, bullet in pairs(bullets) do
+    batch:add(bullet.pos[1], bullet.pos[2])
+  end
+  batch:unbind()
 end
 
 function BulletBatch.count()
@@ -53,12 +59,6 @@ function BulletBatch.count()
 end
 
 function BulletBatch.draw()
-  batch:bind()
-  batch:clear()
-  for i, bullet in pairs(bullets) do
-    batch:add(bullet.pos[1], bullet.pos[2])
-  end
-  batch:unbind()
   love.graphics.draw(batch)
 end
 
