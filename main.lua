@@ -13,7 +13,7 @@ function love.load()
   resources:addFont("font_text", "resources/font.ttf", 30)
   resources:load()
 
-  player = Player.new(tileSheet)
+  player = Player.new()
   controller = Controller.new()
   ai = Ai.new()
   level = Level.new()
