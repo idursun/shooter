@@ -1,13 +1,13 @@
+require "resources"
 bullets = require "bullets"
 require "player"
 require "controller"
 require "ai"
-require "resources"
 require "level"
 
 function love.load()
-  resources = Resources.new()
   width, height = love.graphics.getMode()
+  resources = Resources.new()
   resources:addImage("tiles", "resources/tiles.png")
   resources:addImage("dot", "resources/dot.png")
   resources:addFont("font_text", "resources/font.ttf", 30)
@@ -17,6 +17,7 @@ function love.load()
   controller = Controller.new()
   ai = Ai.new()
   level = Level.new()
+  bullets.initialize()
 end
 
 function love.update(dt)

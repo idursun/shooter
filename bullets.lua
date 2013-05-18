@@ -1,6 +1,12 @@
 local BulletBatch = {}
 local bullets = {}
+local batch
 BulletBatch.bullets = bullets
+
+function BulletBatch.initialize()
+  batch = love.graphics.newSpriteBatch(resources.images.dot)
+end
+
 function BulletBatch.add(position, direction, bullet_type)
     table.insert(bullets, {
         pos= position, 
@@ -47,9 +53,13 @@ function BulletBatch.count()
 end
 
 function BulletBatch.draw()
+  batch:bind()
+  batch:clear()
   for i, bullet in pairs(bullets) do
-    love.graphics.draw(resources.images.dot, bullet.pos[1], bullet.pos[2])
+    batch:add(bullet.pos[1], bullet.pos[2])
   end
+  batch:unbind()
+  love.graphics.draw(batch)
 end
 
 return BulletBatch
