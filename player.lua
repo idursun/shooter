@@ -28,9 +28,9 @@ function Player:update(dt)
   if self.ship_pos.y < 0 then self.ship_pos.y = 0 end
 
   if love.keyboard.isDown(" ") and self.gun_heat < 0 then 
-    bullets:add({self.ship_pos.x + tile_size/2, self.ship_pos.y},     {   0, -392}, 0)
-    bullets:add({self.ship_pos.x + tile_size/2 - 4, self.ship_pos.y}, {-128, -392}, 0)
-    bullets:add({self.ship_pos.x + tile_size/2 + 4, self.ship_pos.y}, { 128, -392}, 0)
+    bullets.add({self.ship_pos.x + tile_size/2, self.ship_pos.y},     {   0, -392}, 0)
+--    bullets:add({self.ship_pos.x + tile_size/2 - 4, self.ship_pos.y}, {-128, -392}, 0)
+ --   bullets:add({self.ship_pos.x + tile_size/2 + 4, self.ship_pos.y}, { 128, -392}, 0)
     self.gun_heat = 2
   end
 

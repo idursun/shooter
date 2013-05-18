@@ -29,7 +29,7 @@ function Ai:update(dt)
   for i, v in pairs(self.enemies) do
     v.pos.y = v.pos.y + 100 * dt
     v.pos.x = v.pos.x + math.random(-100,100) * dt
-    if (bullets:is_hit(v.pos.x, v.pos.y)) then
+    if (bullets.is_hit(v.pos.x, v.pos.y)) then
         table.insert(toremove, i)
     end
   end
@@ -42,5 +42,6 @@ end
 function Ai:draw()
   for i, v in pairs(self.enemies) do
       love.graphics.drawq(resources.images.tiles, self.enemyq, v.pos.x, v.pos.y)
+      love.graphics.rectangle("line", v.pos.x, v.pos.y, tile_size, tile_size)
   end
 end
