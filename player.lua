@@ -7,8 +7,8 @@ function Player.new()
   return setmetatable({
         shipq = love.graphics.newQuad(tile_size,tile_size,tile_size,tile_size, 128, 128),
         ship_shadowq = love.graphics.newQuad(tile_size*2,tile_size*2,tile_size,tile_size, 128, 128),
-        width = 128,
-        height = 128,
+        width = tile_size,
+        height = tile_size,
         gun_heat = 0,
         ship_pos = {x = width/2, y = height - tile_size*2}
   }, Player)
