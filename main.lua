@@ -4,11 +4,13 @@ require "player"
 require "controller"
 require "ai"
 require "level"
+effects = require "effects"
 
 function love.load()
   width, height = love.graphics.getMode()
   resources = Resources.new()
   resources:addImage("tiles", "resources/tiles.png")
+  resources:addImage("fire", "resources/fire.png")
   resources:addImage("dot", "resources/dot.png")
   resources:addFont("font_text", "resources/font.ttf", 30)
   resources:load()
@@ -26,6 +28,7 @@ function love.update(dt)
   ai:update(dt)
   bullets.update(dt)
   level:update(dt)
+  effects.update(dt)
 end
 
 function love.draw()
@@ -33,6 +36,7 @@ function love.draw()
   player:draw()
   bullets.draw()
   ai:draw()
+  effects.draw()
   love.graphics.setBlendMode("multiplicative")
   love.graphics.setBlendMode("alpha")
   love.graphics.setFont(resources.fonts.font_text)

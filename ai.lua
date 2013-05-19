@@ -31,6 +31,7 @@ function Ai:update(dt)
     v.pos.x = v.pos.x + math.random(-100,100) * dt
     if (bullets.is_hit(v.pos.x, v.pos.y)) then
         table.insert(toremove, i)
+        effects.add(effects.newExplosion(1, v.pos.x, v.pos.y))
     end
   end
   for i = #toremove, 1, -1 do
