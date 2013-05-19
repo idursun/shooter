@@ -34,9 +34,8 @@ function Ai:update(dt)
     end
   end
   for i = #toremove, 1, -1 do
-    self:remove(i)
+    self:remove(toremove[i])
   end
-
 end
 
 function Ai:draw()
