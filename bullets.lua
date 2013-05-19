@@ -16,15 +16,12 @@ function BulletBatch.add(position, direction, bullet_type)
     }) 
 end
 
-function BulletBatch.is_hit(pos_x, pos_y)
-  local half_tile_size = tile_size/2
+function BulletBatch.is_hit(x, y, w, h)
   for i, v in pairs(bullets) do
-    print(v.pos[1])
-    print(pos_x)
-    if (pos_x > v.pos[1] - half_tile_size 
-    and pos_x < v.pos[1] + half_tile_size 
-    and pos_y > v.pos[2] - half_tile_size 
-    and pos_y < v.pos[2] + half_tile_size) then
+    if (x > v.pos[1] - w/2 
+    and x < v.pos[1] + w/2 
+    and y > v.pos[2] - h/2 
+    and y < v.pos[2] + h/2) then
       v.will_remove = true
       return true
     end
