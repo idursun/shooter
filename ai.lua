@@ -22,7 +22,7 @@ function Ai:update(dt)
     table.insert(self.enemies, {
         pos = {x = math.random(width), y = -100}
     })
-    self.last_enemy_time = 1
+    self.last_enemy_time = 0.5
   end
   self.last_enemy_time = self.last_enemy_time - dt
   toremove = {}
