@@ -1,7 +1,7 @@
 Level = {}
 Level.__index = Level
 
-local w, h = love.graphics.getMode()
+local w, h = love.window.getMode()
 tile_size = 32
 
 function Level.new()
@@ -43,7 +43,7 @@ end
 function Level:draw()
   for y=-1, h/tile_size do
       for x=0, w/tile_size do
-          love.graphics.drawq(resources.images.tiles, tiles[sheet[y][x]], x * tile_size, top.y + y * tile_size)
+          love.graphics.draw(resources.images.tiles, tiles[sheet[y][x]], x * tile_size, top.y + y * tile_size)
       end    
   end
 end

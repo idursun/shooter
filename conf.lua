@@ -1,5 +1,5 @@
 function love.conf(t)
-  t.screen.fullscreen = false
-  t.screen.fsaa = 8
-  t.screen.vsync = true
+  t.window.fullscreen = false
+  t.window.fsaa = 8
+  t.window.vsync = true
 end

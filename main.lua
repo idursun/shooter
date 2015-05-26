@@ -7,7 +7,7 @@ require "level"
 effects = require "effects"
 
 function love.load()
-  width, height = love.graphics.getMode()
+  width, height = love.window.getMode()
   resources = Resources.new()
   resources:addImage("tiles", "resources/tiles.png")
   resources:addImage("fire", "resources/fire.png")

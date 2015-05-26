@@ -41,7 +41,7 @@ end
 
 function Ai:draw()
   for i, v in pairs(self.enemies) do
-      love.graphics.drawq(resources.images.tiles, self.enemyq, v.pos.x, v.pos.y)
+      love.graphics.draw(resources.images.tiles, self.enemyq, v.pos.x, v.pos.y)
       love.graphics.rectangle("line", v.pos.x, v.pos.y, tile_size, tile_size)
   end
 end

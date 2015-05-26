@@ -36,6 +36,6 @@ function Player:update(dt)
 end
 
 function Player:draw()
-  love.graphics.drawq(resources.images.tiles, self.shipq, math.ceil(self.ship_pos.x), math.ceil(self.ship_pos.y))
-  love.graphics.drawq(resources.images.tiles, self.ship_shadowq, math.ceil(self.ship_pos.x+32), math.ceil(self.ship_pos.y+32))
+  love.graphics.draw(resources.images.tiles, self.shipq, math.ceil(self.ship_pos.x), math.ceil(self.ship_pos.y))
+  love.graphics.draw(resources.images.tiles, self.ship_shadowq, math.ceil(self.ship_pos.x+32), math.ceil(self.ship_pos.y+32))
 end
